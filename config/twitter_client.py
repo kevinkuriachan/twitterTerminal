@@ -1,22 +1,26 @@
 from tweepy import API
 from tweepy import OAuthHandler
+import os
 
 def get_twitter_auth():
-    consumerKeyFile = open("APIkey.key.txt",'r')
-    consumerSecretFile = open("APIsecret.key.txt",'r')
-    accessSecretFile = open("AccessSecret.key.txt",'r')
-    accessTokenFile = open("AccessToken.key.txt",'r')
 
-    consumer_key = consumerKeyFile.readline()
-    consumer_secret = consumerSecretFile.readline()
-    access_token = accessSecretFile.readline()
-    access_secret = accessTokenFile.readline()
+    if os.path.exists("./twitter.key.txt"):
+        file = open("twitter.key.txt",'r')
+
+        consumer_key = file.readline().strip('\n')
+        consumer_secret = file.readline().strip('\n')
+        access_token = file.readline().strip('\n')
+        access_secret = file.readline().strip('\n')
+
+        file.close()
+
+    else:
+        consumer_key = os.getenv('twitterConsumerKey')
+        consumer_secret = os.getenv('twitterConsumerSecret')
+        access_token = os.getenv('twitterAccessToken')
+        access_secret = os.getenv('twitterAccessSecret')
+
     
-
-    consumerKeyFile.close()
-    consumerSecretFile.close()
-    accessSecretFile.close()
-    accessTokenFile.close()
 
     auth = OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_secret)
