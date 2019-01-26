@@ -2,6 +2,7 @@ from tweepy import API
 from tweepy import OAuthHandler
 import os
 
+
 def get_twitter_auth():
 
     if os.path.exists("./twitter.key.txt"):
