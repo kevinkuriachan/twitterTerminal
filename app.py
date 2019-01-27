@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, render_template
 import sys, json, os, urllib, random
 from config.twitter_client import getAPI
 import praw, random, requests
