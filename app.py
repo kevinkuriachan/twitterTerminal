@@ -14,8 +14,10 @@ def home():
 @app.route('/recieve', methods=['POST'])
 def recieveMessage():
     data = request.get_json()
-    print("**MESSAGE RECIEVED**")
 
-    twitterAPI.update_status(data['text'])
+    if ("@bot#tweet: " in data['text']):
+        stringToTweet = data['text'].replace("@bot#tweet: ", "")
+        twitterAPI.update_status(stringToTweet)
+    
 
     return "ok", 200
