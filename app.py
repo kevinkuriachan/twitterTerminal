@@ -55,7 +55,10 @@ def recieveMessage():
             req = requests.get(url)
             with open('imgToTweet.jpg', 'wb') as openFile:
                 openFile.write(req.content)
-            twitterAPI.update_with_media("imgToTweet.jpg")
+            try:
+                twitterAPI.update_with_media("imgToTweet.jpg")
+            except:
+                respond("oh no something went wrong. your command did not work")
         else:
             respond("subreddit not found for " + sub)
 
