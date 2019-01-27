@@ -48,7 +48,7 @@ def respond(message):
 
 @app.route('/')
 def home():
-    return "hello"
+    return render_template('index.html')
 
 @app.route('/recieve', methods=['POST'])
 def recieveMessage():
