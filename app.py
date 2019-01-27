@@ -54,6 +54,11 @@ def recieveMessage():
             submissions = list(redditAPI.subreddit(sub).hot(limit=150))
             size = len(submissions)
             url = submissions[random.randint(0,size)].url
+            count = 0
+            while (".jpg" not in url) and count < 1000:
+                url = submissions[random.randint(0,size)].url
+                count += 1
+                
             req = requests.get(url)
             with open('imgToTweet.jpg', 'wb') as openFile:
                 openFile.write(req.content)
