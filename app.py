@@ -8,12 +8,24 @@ from urllib.parse import urlencode
 
 app = Flask(__name__)
 
-BOT_ID = os.getenv('bot_id')
+if  os.path.exists("/config/bot.key.txt"):
+    file = open("config/bot.key.txt",'r')
+    BOT_ID = file.readline().strip("\n")
+else:
+    BOT_ID = os.getenv('bot_id')
 
 
 
 twitterAPI = getAPI()
-redditAPI = reddit = praw.Reddit(client_id = os.getenv('redditID'), client_secret = os.getenv('redditSecret'), user_agent = 'my user agent')
+
+if os.path.exists("/config/reddit.key.txt"):
+    file = open("config/reddit.key.txt", 'r')
+    redditID = file.readline().strip("\n")
+    redditSec = file.readline().strip("\n")
+    redditAPI = praw.Reddit(client_id = redditID, client_secret = redditSec, user_agent = 'my user agent')
+    file.close()
+else:
+    redditAPI = praw.Reddit(client_id = os.getenv('redditID'), client_secret = os.getenv('redditSecret'), user_agent = 'my user agent')
 
 def subreddit_exists(name):
     # reference: https://www.reddit.com/r/redditdev/comments/68dhpm/praw_best_way_to_check_if_subreddit_exists_from/
@@ -58,7 +70,7 @@ def recieveMessage():
             while (".jpg" not in url) and count < 1000:
                 url = submissions[random.randint(0,size)].url
                 count += 1
-                
+
             req = requests.get(url)
             with open('imgToTweet.jpg', 'wb') as openFile:
                 openFile.write(req.content)
