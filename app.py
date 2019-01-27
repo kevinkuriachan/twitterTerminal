@@ -84,4 +84,10 @@ def recieveMessage():
 
         return "ok", 200
 
+    if ("@bot#readtweets" in data["text"]):
+        tweets = twitterAPI.home_timeline()
+        for tweet in tweets:
+            respond(tweet.user.name +":" + " " +tweet.text)
+        return "ok", 200
+
     return "ok", 200
