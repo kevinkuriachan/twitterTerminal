@@ -4,6 +4,7 @@ from config.twitter_client import getAPI
 import praw, random, requests
 from prawcore import NotFound as subNotFound
 from urllib.request import Request, urlopen
+from urllib.parse import urlencode
 
 app = Flask(__name__)
 
@@ -48,6 +49,7 @@ def recieveMessage():
 
     if ("@bot#pic: " in data['text']):
         sub = data['text'].replace("@bot#pic: ", "")
+        sub.strip(" ")
         if (subreddit_exists(sub)):
             submissions = list(redditAPI.subreddit(sub).hot(limit=150))
             size = len(submissions)
