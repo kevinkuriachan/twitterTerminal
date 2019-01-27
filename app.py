@@ -18,7 +18,7 @@ def subreddit_exists(name):
     # reference: https://www.reddit.com/r/redditdev/comments/68dhpm/praw_best_way_to_check_if_subreddit_exists_from/
     exists = True
     try:
-        redditAPI.subreddits.search_by_name(sub, exact=True)
+        redditAPI.subreddits.search_by_name(name, exact=True)
     except subNotFound:
         exists = False
     return exists
