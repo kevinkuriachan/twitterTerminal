@@ -58,6 +58,7 @@ def recieveMessage():
             try:
                 twitterAPI.update_with_media("imgToTweet.jpg")
             except:
+                print("inside exception")
                 respond("oh no something went wrong. your command did not work")
         else:
             respond("subreddit not found for " + sub)
